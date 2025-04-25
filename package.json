@@ -1,0 +1,43 @@
+{
+  "name": "ts-email-validation",
+  "version": "1.0.0",
+  "description": "email confirmation functionality in an Express app using Nodemailer and TypeScript",
+  "keywords": [
+    "nodemailer",
+    "expressjs",
+    "nodejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "github.com/seifsheikhelarab/ts-email-validation"
+  },
+  "license": "MIT",
+  "author": "seifsheikhelarab",
+  "type": "module",
+  "main": "app.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx watch src/app.ts",
+    "dev": "tsx src/app.ts",
+    "start": "node dist/app.js"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.1",
+    "@types/express-session": "^1.18.1",
+    "@types/nodemailer": "^6.4.17",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.13.3",
+    "nodemailer": "^6.10.1",
+    "rate-limit-mongo": "^2.3.2"
+  }
+}
