@@ -39,11 +39,11 @@
 </head>
 <body>
   <div class="container">
-    <h2>Hello, <%= user.username %>!</h2>
+    <h2>Hello!</h2>
     <p>Thank you for registering. Please confirm your email address by clicking the button below:</p>
-    <a href="<%= verificationUrl %>" class="button">Confirm Email</a>
+    <a href="http://localhost:3001/verify/<%= id %>" class="button">Confirm Email</a>
     <p>If the button doesn't work, copy and paste the following link into your browser:</p>
-    <p><a href="<%= verificationUrl %>"><%= verificationUrl %></a></p>
+    <p><a href="http://localhost:3001/verify/<%= id %>">http://localhost:3001/verify/<%= id %></a></p>
     <div class="footer">
       <p>If you did not sign up for this account, please ignore this email.</p>
     </div>
