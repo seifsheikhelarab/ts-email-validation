@@ -7,11 +7,13 @@ export const router = express.Router();
 
 
 
-router.get('/', (req, res) => {
-  req.session
-  res.render("index",{
-
-  });
+router.get('/',async (req, res) => {
+  if (req.session.user !== undefined) {
+    const user = await UserModel.findById(req.session.user._id);
+    res.render("index_loggedin",{user})
+  }else{
+    res.render("index_nouser")
+  }
 });
 
 router.get("/login", (req, res)=>{
@@ -19,7 +21,6 @@ router.get("/login", (req, res)=>{
 });
 
 router.post("/signup", async (req, res)=>{
-  //console.log(req.body);
   const { username, email, password } = req.body;
   const existingUser = await UserModel.findOne({email});
   if(existingUser){
@@ -28,8 +29,7 @@ router.post("/signup", async (req, res)=>{
 
   const user = new UserModel({username, email, password});
   await user.save();
-  console.log(user.email);
-  console.log(user._id.toString());
+  req.session.user = user;
   sendEmail(user.email,user._id.toString());
   res.redirect("/");
 
@@ -37,6 +37,17 @@ router.post("/signup", async (req, res)=>{
 
 router.get("/signup", (req, res)=>{
   res.render("signup");
+});
+
+router.post("/login", async (req, res)=>{
+  const { username, password } = req.body; 
+  const user = await UserModel.findOne({username,password}).lean();
+  if(user){
+    req.session.user = user;
+    res.redirect("/");
+  }else{
+    res.status(404).send("no user found");
+  }
 });
 
 router.get("/verify/:id", async (req, res) => {
@@ -51,10 +62,14 @@ router.get("/verify/:id", async (req, res) => {
       res.status(404).send("User not found");
     }
 
-    console.log("User verified:", user);
     res.redirect("/");
   } catch (error) {
     console.error("Verification error:", error);
     res.status(500).send("Internal Server Error");
   }
 });
+
+router.get("/logout",(req,res)=>{
+  req.session.destroy((err)=>console.error(err));
+  res.redirect("/");
+})

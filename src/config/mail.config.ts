@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport/index.js';
 import { __dirname } from '../app.js';
@@ -5,7 +7,7 @@ import ejs from 'ejs';
 
 export const transporter = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
+    port: Number(process.env.MAIL_PORT),
     secure: false,
     auth: {
         user: process.env.MAIL_USER,
